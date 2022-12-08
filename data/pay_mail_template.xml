@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_pay_email" model="mail.template">
+            <field name="name">Pay Mail</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        <strong>Hello,</strong>
+                        <br/>
+                        <br/>
+                        <strong>
+                            <span t-esc="object.partner_id.name"/>
+                            Purchase A Product
+                        </strong>
+                        <br/>
+                        <br/>
+                        <tr>
+                            <strong>Customer Name:
+                                <span t-esc="object.partner_id.name"/>
+                            </strong>
+                        </tr>
+                        <br/>
+                        <tr>
+                            <strong>SO No :
+                                <span t-esc="object.name"/>
+                            </strong>
+                        </tr>
+                        <br/>
+                        <br/>
+                    </p>
+                </div>
+                <div style="margin: 0px; padding: 0px;">
+                    <table width="100%" style="color: #454748; font-size: 12px; border-collapse: collapse;">
+                        <tr style="border-bottom: 4px solid #dee2e6;">
+                            <td style="width: 150px;">
+                                <strong>Product</strong>
+                            </td>
+                            <td></td>
+                            <td width="15%" align="center">
+                                <strong>Quantity</strong>
+
+                            </td>
+                            <td></td>
+                            <td width="15%" align="center">
+                                <strong>Unit Price</strong>
+                            </td>
+                            <td></td>
+                            <td width="15%" align="center">
+                                <strong>Discount</strong>
+                            </td>
+                            <td></td>
+                            <td width="15%" align="center">
+                                <strong>Subtotal</strong>
+                            </td>
+                        </tr>
+                        <t t-foreach="object.order_line" t-as="rec">
+                            <tr style="border-bottom: 1px solid #dee2e6;">
+                                <td width="15%" align="center">
+                                    <span t-esc="rec['name']"/>
+                                </td>
+                                <td></td>
+                                <td width="15%" align="center">
+                                    <span t-esc="rec['product_uom_qty']"/>
+                                </td>
+                                <td></td>
+                                <td width="15%" align="center">
+                                    <span t-esc="rec['price_unit']"/>
+                                </td>
+                                <td></td>
+                                <td width="15%" align="center">
+                                    <span t-esc="rec['discount']"/>
+                                </td>
+                                <td></td>
+                                <td width="15%" align="center">
+                                    <span t-esc="rec['price_subtotal']"/>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </t>
+                    </table>
+                    <div style="margin: 0px; padding: 0px;">
+                        <table width="100%" style="color: #454748; font-size: 12px; border-spacing: 0px 4px;"
+                               align="right">
+                            <tr>
+                                <td style="width: 60%"/>
+                                <td align="right">
+                                    <strong>Total:</strong>
+                                </td>
+                                <td align="right"
+                                    t-out="object.amount_total">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="margin:32px 0px 32px 0px;text-align:center">
+                        <a style="margin-left:10px;background-color:#875a7b;padding:8px 16px 8px 16px;text-decoration:none;color:#fff;border-radius:5px;font-size:13px"
+                           t-attf-href="http://localhost:8016/web#id={{object.id}}&amp;cids=1&amp;menu_id=754&amp;action=936&amp;model=sale.order&amp;view_type=form">
+                            View Sales Order
+                        </a>
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>
+
